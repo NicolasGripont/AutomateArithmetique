@@ -1,22 +1,15 @@
 #include "nombre.h"
 
-Nombre::Nombre(int s, nombre type) : Symbole(), type(type), n(s) {
+Nombre::Nombre(int s, symbole type) : Symbole(type), n(s) {
+
 }
 
 Nombre::~Nombre() {
 
 }
 
-nombre Nombre::getType() const {
-    return type;
-}
-
 int Nombre::getNombre() const {
     return n;
-}
-
-void Nombre::setType(nombre type) {
-    this->type = type;
 }
 
 void Nombre::setNombre(int n) {

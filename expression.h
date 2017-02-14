@@ -2,23 +2,20 @@
 #define EXPRESSION_H
 #include <iostream>
 #include <string>
+#include <map>
 #include "symbole.h"
 
 using namespace std;
 
-enum expression {ADD, MUL, PO, PF, ERR};
-
 class Expression : public Symbole
 {
 private:
-    expression type;
-public:
-    Expression(char c);
-    virtual ~Expression();
-    expression getType() const;
-    void setType(char c);
 
-    virtual string print() const;
+public:
+    Expression();
+    virtual ~Expression();
+    virtual int eval(const map<string, int>& valeurs) = 0;
+    virtual string print() const = 0;
 };
 
 #endif // EXPRESSION_H

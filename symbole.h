@@ -5,12 +5,20 @@
 
 using namespace std;
 
+enum symbole {ADD, MUL, PO, PF, ENTIER, E, ERR};
+
 class Symbole
 {
+private:
+	symbole type;
 public:
-    Symbole();
+    Symbole(symbole type);
     virtual ~Symbole();
-    virtual string print() const = 0;
+
+    symbole getType() const;
+    void setType(symbole type);
+
+    virtual string print() const;
     friend ostream& operator<<(ostream& os, const Symbole& s);
 };
 

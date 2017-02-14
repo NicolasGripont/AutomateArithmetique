@@ -1,6 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 #include <iostream>
+#include "automate.h"
 #include "symbole.h"
 
 using namespace std;
@@ -25,7 +26,6 @@ public:
 };
 
 // ----------------------------------- State 0 -----------------------------------
-
 class State0 : public State
 {
 public:
@@ -37,7 +37,6 @@ public:
 };
 
 // ----------------------------------- State 1 -----------------------------------
-
 class State1 : public State
 {
 public:
@@ -47,8 +46,8 @@ public:
     virtual string print() const;
     virtual bool transition(Automate & automate, Symbole *s);
 };
-// ----------------------------------- State 2 -----------------------------------
 
+// ----------------------------------- State 2 -----------------------------------
 class State2 : public State
 {
 public:
@@ -58,8 +57,8 @@ public:
     virtual string print() const;
     virtual bool transition(Automate & automate, Symbole *s);
 };
-// ----------------------------------- State 3 -----------------------------------
 
+// ----------------------------------- State 3 -----------------------------------
 class State3 : public State
 {
 public:
@@ -69,4 +68,5 @@ public:
     virtual string print() const;
     virtual bool transition(Automate & automate, Symbole *s);
 };
+
 #endif // STATE_H

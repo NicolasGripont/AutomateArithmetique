@@ -11,6 +11,8 @@
 
 using namespace std;
 
+class State;
+
 class Automate
 {
 private:

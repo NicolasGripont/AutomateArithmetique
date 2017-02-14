@@ -8,19 +8,15 @@
 
 using namespace std;
 
-enum nombre {ENTIER};
-
 class Nombre : public Symbole
 {
 private:
-    nombre type;
     int n;
 public:
-    Nombre(int n, nombre type);
+    Nombre(int n, symbole type);
     virtual ~Nombre();
-    nombre getType() const;
+
     int getNombre() const;
-    void setType(nombre type);
     void setNombre(int n);
 
     virtual string print() const;
