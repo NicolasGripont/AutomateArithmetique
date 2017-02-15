@@ -3,25 +3,24 @@
 #include <iostream>
 #include <deque>
 
-#include "symbole.h"
+#include "symbol.h"
 #include "expression.h"
-#include "nombre.h"
 
 using namespace std;
 
 class Lexer
 {
 private:
-    deque<Symbole *> symboles;
+    deque<Symbol *> symbols;
     unsigned int index;
-    void deleteSymboles();
+    void deleteSymbols();
 public:
     Lexer();
     ~Lexer();
     void read(string s);
-    Symbole * shift();
-    Symbole * next() const;
-    deque<Symbole*> getSymboles() const;
+    Symbol * shift();
+    Symbol * next() const;
+    deque<Symbol*> getSymbols() const;
     string print() const;
 
     friend ostream& operator<<(ostream& os, const Lexer& l);

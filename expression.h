@@ -2,19 +2,19 @@
 #define EXPRESSION_H
 #include <iostream>
 #include <string>
-#include <map>
-#include "symbole.h"
+
+#include "symbol.h"
 
 using namespace std;
 
-class Expression : public Symbole
+class Expression : public Symbol
 {
 private:
 
 public:
     Expression();
     virtual ~Expression();
-    virtual int eval(const map<string, int>& valeurs) = 0;
+    virtual int eval() = 0;
     virtual string print() const = 0;
 };
 

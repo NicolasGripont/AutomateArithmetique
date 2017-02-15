@@ -1,31 +1,32 @@
-#include "symbole.h"
+#include "symbol.h"
 
-Symbole::Symbole(symbole type) : type(type) {
+Symbol::Symbol(SymbolType type) : type(type) {
 }
 
-Symbole::~Symbole() {
+Symbol::~Symbol() {
 
 }
 
-symbole Symbole::getType() const {
+SymbolType Symbol::getType() const {
     return type;
 }
 
-void Symbole::setType(symbole type) {
+void Symbol::setType(SymbolType type) {
     this->type = type;
 }
 
-string Symbole::print() const {
+string Symbol::print() const {
 	switch(type) {
         case ADD : return "+";
         case MUL : return "*";
         case PO : return "(";
         case PF : return ")";
+        case END : return "$";
         default : return "ERR";
     }
 }
 
-ostream& operator<<(ostream& os, const Symbole& s) {
+ostream& operator<<(ostream& os, const Symbol& s) {
     os << s.print() << endl;
     return os;
 }

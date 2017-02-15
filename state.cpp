@@ -31,19 +31,19 @@ string State0::print() const {
     return name;
 }
 
-bool State0::transition(Automate & automate, Symbole *s) {
+bool State0::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         switch(s->getType()) {
             case E : 
                 automate.pushState(new State1("State 1"));
             case PO :
                 automate.pushState(new State2("State 2"));
-            case ENTIER :
+            case INT :
                 automate.pushState(new State3("State 3"));
             default :
                 return false;
         }
-        automate.pushSymbole(s);
+        automate.pushSymbol(s);
         return true;
     }
     return false;
@@ -60,19 +60,19 @@ string State1::print() const {
     return name;
 }
 
-bool State1::transition(Automate & automate, Symbole *s) {
+bool State1::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         switch(s->getType()) {
             case E : 
                 automate.pushState(new State1("State 1"));
             case PO :
                 automate.pushState(new State2("State 2"));
-            case ENTIER :
+            case INT :
                 automate.pushState(new State3("State 3"));
             default :
                 return false;
         }
-        automate.pushSymbole(s);
+        automate.pushSymbol(s);
         return true;
     }
     return false;
@@ -89,19 +89,19 @@ string State2::print() const {
     return name;
 }
 
-bool State2::transition(Automate & automate, Symbole *s) {
+bool State2::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         switch(s->getType()) {
             case E : 
                 automate.pushState(new State1("State 1"));
             case PO :
                 automate.pushState(new State2("State 2"));
-            case ENTIER :
+            case INT :
                 automate.pushState(new State3("State 3"));
             default :
                 return false;
         }
-        automate.pushSymbole(s);
+        automate.pushSymbol(s);
         return true;
     }
     return false;
@@ -118,19 +118,19 @@ string State3::print() const {
     return name;
 }
 
-bool State3::transition(Automate & automate, Symbole *s) {
+bool State3::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         switch(s->getType()) {
             case E : 
                 automate.pushState(new State1("State 1"));
             case PO :
                 automate.pushState(new State2("State 2"));
-            case ENTIER :
+            case INT :
                 automate.pushState(new State3("State 3"));
             default :
                 return false;
         }
-        automate.pushSymbole(s);
+        automate.pushSymbol(s);
         return true;
     }
     return false;

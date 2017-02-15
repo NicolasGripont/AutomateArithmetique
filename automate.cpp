@@ -5,13 +5,13 @@ Automate::Automate() {
 }
 
 Automate::~Automate() {
-    deleteSymboles();
+    deleteSymbols();
     deleteStates();
 }
 
 bool Automate::execute(string s) {
     chaine = s;
-    deleteSymboles();
+    deleteSymbols();
     deleteStates();
     lexer.read(s);
     return true;
@@ -34,11 +34,11 @@ string Automate::print() const {
         }
         chaine += "\n";
     }
-    chaine += "\n---------------- Symboles ----------------\n";
-    stack<Symbole *> symboles2 = symboles;
-    while(!symboles2.empty()) {
-        Symbole *s = symboles2.top();
-        symboles2.pop();
+    chaine += "\n--------------- Symbols ---------------\n";
+    stack<Symbol *> symbols2 = symbols;
+    while(!symbols2.empty()) {
+        Symbol *s = symbols2.top();
+        symbols2.pop();
         if(s != nullptr) {
             chaine += s->print();
         } else {
@@ -56,9 +56,9 @@ void Automate::pushState(State *s) {
     }
 }
 
-void Automate::pushSymbole(Symbole *s) {
+void Automate::pushSymbol(Symbol *s) {
    if(s != nullptr) {
-     symboles.push(s);
+     symbols.push(s);
    }
 }
 
@@ -66,8 +66,8 @@ void Automate::popState() {
     states.pop();
 }
 
-void Automate::popSymbole() {
-    symboles.pop();
+void Automate::popSymbol() {
+    symbols.pop();
 }
 
 void Automate::deleteStates() {
@@ -80,10 +80,10 @@ void Automate::deleteStates() {
     }
 }
 
-void Automate::deleteSymboles() {
-    while(!symboles.empty()) {
-        Symbole *s = symboles.top();
-        symboles.pop();
+void Automate::deleteSymbols() {
+    while(!symbols.empty()) {
+        Symbol *s = symbols.top();
+        symbols.pop();
         if(s != nullptr) {
             delete s;
         }

@@ -1,14 +1,16 @@
 #include "lexer.h"
+#include "number.h"
+
 
 Lexer::Lexer() : index(0){
 }
 
 Lexer::~Lexer(){
-    deleteSymboles();
+    deleteSymbols();
 }
 
 void Lexer::read(string s) {
-    deleteSymboles();
+    deleteSymbols();
     for(unsigned int i=0;i<s.length();i++) {
         if (s[i] >= 48 && s[i] <= 57){
             string chaine = "";
@@ -16,37 +18,37 @@ void Lexer::read(string s) {
                 chaine += s[i];
                 i++;
             } while(s[i] >= 48 && s[i] <= 57 && i < s.length());
-            symboles.push_back(new Nombre(stoi(chaine), ENTIER));
+            symbols.push_back(new Number(stoi(chaine), INT));
             i--;
         } else {
-            Symbole *sym = nullptr;
+            Symbol *sym = nullptr;
             switch(s[i]) {
                 case ' ':
                 case '\n':
                 case '\t': break;
-                case '$': sym = new Symbole(END);break;
-                case '+' : sym = new Symbole(ADD);break;
-                case '*' : sym = new Symbole(MUL);break;
-                case '(' : sym = new Symbole(PO);break;
-                case ')' : sym = new Symbole(PF);break;
+                case '$': sym = new Symbol(END);break;
+                case '+' : sym = new Symbol(ADD);break;
+                case '*' : sym = new Symbol(MUL);break;
+                case '(' : sym = new Symbol(PO);break;
+                case ')' : sym = new Symbol(PF);break;
                 default: cout << "ERROR : caractere " << s[i] << " lu" << endl;
             }
             if(sym != nullptr) {
-                symboles.push_back(sym);
+                symbols.push_back(sym);
             }
         }
     }
 }
 
-deque<Symbole*> Lexer::getSymboles() const {
-    return symboles;
+deque<Symbol*> Lexer::getSymbols() const {
+    return symbols;
 }
 
 string Lexer::print() const {
     string chaine = "";
     int ind = 0;
-    deque<Symbole*>::const_iterator i = symboles.begin();
-    while(i != symboles.end()) {
+    deque<Symbol*>::const_iterator i = symbols.begin();
+    while(i != symbols.end()) {
         if(ind == index) 
             chaine += "-> ";
         chaine += (*i)->print() + "\n";
@@ -56,25 +58,25 @@ string Lexer::print() const {
     return chaine;
 }
 
-Symbole* Lexer::next() const {
-    if(index < symboles.size())
-        return symboles[index];
+Symbol* Lexer::next() const {
+    if(index < symbols.size())
+        return symbols[index];
     else
         return nullptr;
 }
 
-Symbole* Lexer::shift() {
-    if(index < symboles.size())
-        return symboles[index++];
+Symbol* Lexer::shift() {
+    if(index < symbols.size())
+        return symbols[index++];
     else
         return nullptr;
 }
 
-void Lexer::deleteSymboles() {
+void Lexer::deleteSymbols() {
     index = 0;
-    while(!symboles.empty()) {
-        Symbole *s = this->symboles.back();
-        symboles.pop_back();
+    while(!symbols.empty()) {
+        Symbol *s = this->symbols.back();
+        symbols.pop_back();
         if(s != nullptr) {
            delete s;
         }

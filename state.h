@@ -2,7 +2,7 @@
 #define STATE_H
 #include <iostream>
 #include "automate.h"
-#include "symbole.h"
+#include "symbol.h"
 
 using namespace std;
 class Automate;
@@ -17,7 +17,7 @@ public:
     virtual ~State();
 
     virtual string print() const = 0;
-    virtual bool transition(Automate & automate, Symbole *s) = 0;
+    virtual bool transition(Automate & automate, Symbol *s) = 0;
 
     string getName() const;
     void setName(string name);
@@ -33,7 +33,7 @@ public:
     virtual ~State0();
 
     virtual string print() const;
-    virtual bool transition(Automate & automate, Symbole *s);
+    virtual bool transition(Automate & automate, Symbol *s);
 };
 
 // ----------------------------------- State 1 -----------------------------------
@@ -44,7 +44,7 @@ public:
     virtual ~State1();
 
     virtual string print() const;
-    virtual bool transition(Automate & automate, Symbole *s);
+    virtual bool transition(Automate & automate, Symbol *s);
 };
 
 // ----------------------------------- State 2 -----------------------------------
@@ -55,7 +55,7 @@ public:
     virtual ~State2();
 
     virtual string print() const;
-    virtual bool transition(Automate & automate, Symbole *s);
+    virtual bool transition(Automate & automate, Symbol *s);
 };
 
 // ----------------------------------- State 3 -----------------------------------
@@ -66,7 +66,7 @@ public:
     virtual ~State3();
 
     virtual string print() const;
-    virtual bool transition(Automate & automate, Symbole *s);
+    virtual bool transition(Automate & automate, Symbol *s);
 };
 
 #endif // STATE_H

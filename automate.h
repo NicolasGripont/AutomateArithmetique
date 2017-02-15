@@ -4,8 +4,7 @@
 #include <stack>
 
 #include "lexer.h"
-#include "symbole.h"
-#include "nombre.h"
+#include "symbol.h"
 #include "expression.h"
 #include "state.h"
 
@@ -18,10 +17,10 @@ class Automate
 private:
     Lexer lexer;
     stack<State *> states;
-    stack<Symbole *> symboles;
+    stack<Symbol *> symbols;
     string chaine;
     void deleteStates();
-    void deleteSymboles();
+    void deleteSymbols();
 
 public:
     Automate();
@@ -30,9 +29,9 @@ public:
     string print() const;
 
     void pushState(State *s);
-    void pushSymbole(Symbole *s);
+    void pushSymbol(Symbol *s);
     void popState();
-    void popSymbole();
+    void popSymbol();
 
     friend ostream& operator<<(ostream& os, const Automate& a);
 };

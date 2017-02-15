@@ -6,7 +6,7 @@ COMP = g++
 RM = rm
 EDL = g++
 ECHO = echo
-INT = symbole.h nombre.h expression.h lexer.h automate.h state.h
+INT = symbol.h number.h expression.h numberexpression.h binaryexpression.h multiplybinaryexpression.h plusbinaryexpression.h lexer.h automate.h state.h
 REAL = $(INT:.h=.cpp) main.cpp
 OBJ = $(INT:.h=.o) main.o
 OUTPUT = -o
@@ -17,8 +17,6 @@ LIBS =
 LIBPATH =# -L
 INCPATH =# -I
 CLEAN = clean
-SOS = backup
-BACKUPFILE = backup.sh
 RESSOURCES = 
 
 
@@ -34,18 +32,18 @@ $(EXE) : $(OBJ)
 
 
 main.o : automate.h automate.cpp $(MAKEFILE)
-symbole.o : symbole.h $(MAKEFILE)
-nombre.o : nombre.h symbole.h symbole.cpp $(MAKEFILE)
-expression.o : expression.h symbole.h symbole.cpp $(MAKEFILE)
-lexer.o : lexer.h nombre.h nombre.cpp expression.h expression.cpp symbole.h symbole.cpp $(MAKEFILE)
-automate.o : automate.h lexer.h lexer.cpp state.h state.cpp nombre.h nombre.cpp expression.h expression.cpp symbole.h symbole.cpp $(MAKEFILE)
-state.o : automate.h automate.cpp symbole.h symbole.cpp $(MAKEFILE)
+symbol.o : symbol.h $(MAKEFILE)
+number.o : number.h symbol.h symbol.cpp $(MAKEFILE)
+expression.o : expression.h symbol.h symbol.cpp $(MAKEFILE)
+numberexpression.o : numberexpression.h expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
+binaryexpression.o : binaryexpression.h expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
+multiplybinaryexpression.o : multiplybinaryexpression.h binaryexpression.h binaryexpression.cpp expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
+plusbinaryexpression.o : plusbinaryexpression.h binaryexpression.h binaryexpression.cpp expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
+lexer.o : lexer.h expression.h expression.cpp symbol.h symbol.cpp number.h number.cpp $(MAKEFILE)
+automate.o : automate.h lexer.h lexer.cpp state.h state.cpp expression.h expression.cpp symbol.h symbol.cpp number.h number.cpp $(MAKEFILE)
+state.o : automate.h automate.cpp symbol.h symbol.cpp $(MAKEFILE)
 
 $(CLEAN) :
 	$(ECHO) "nettoyage du repertoire..."
 	$(RM) $(RMFLAGS) $(EXE) $(OBJ) core main.o
-
-
-$(SOS) : 
-	./$(BACKUPFILE) $(MAKEFILE) $(INT) $(REAL) $(RESSOURCES) $(BACKUPFILE)
 
