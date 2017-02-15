@@ -22,8 +22,9 @@ void Lexer::read(string s) {
             Symbole *sym = nullptr;
             switch(s[i]) {
                 case ' ':
-                case '\n': 
+                case '\n':
                 case '\t': break;
+                case '$': sym = new Symbole(END);break;
                 case '+' : sym = new Symbole(ADD);break;
                 case '*' : sym = new Symbole(MUL);break;
                 case '(' : sym = new Symbole(PO);break;

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-enum symbole {ADD, MUL, PO, PF, ENTIER, E, ERR};
+enum symbole {ADD, MUL, PO, PF, ENTIER, END, E, ERR};
 
 class Symbole
 {
