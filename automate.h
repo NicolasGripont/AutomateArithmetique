@@ -30,8 +30,8 @@ public:
 
     void pushState(State *s);
     void pushSymbol(Symbol *s);
-    void popState();
-    void popSymbol();
+    State* popState();
+    Symbol* popSymbol();
 
     friend ostream& operator<<(ostream& os, const Automate& a);
 };

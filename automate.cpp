@@ -14,6 +14,12 @@ bool Automate::execute(string s) {
     deleteSymbols();
     deleteStates();
     lexer.read(s);
+
+//    while()
+//    {
+
+//    }
+
     return true;
 }
 
@@ -62,12 +68,16 @@ void Automate::pushSymbol(Symbol *s) {
    }
 }
 
-void Automate::popState() {
+State* Automate::popState() {
+    State *s = states.top();
     states.pop();
+    return s;
 }
 
-void Automate::popSymbol() {
+Symbol* Automate::popSymbol() {
+    Symbol *s = symbols.top();
     symbols.pop();
+    return s;
 }
 
 void Automate::deleteStates() {

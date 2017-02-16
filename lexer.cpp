@@ -49,7 +49,7 @@ string Lexer::print() const {
     int ind = 0;
     deque<Symbol*>::const_iterator i = symbols.begin();
     while(i != symbols.end()) {
-        if(ind == index) 
+        if(ind == index)
             chaine += "-> ";
         chaine += (*i)->print() + "\n";
         ind++;

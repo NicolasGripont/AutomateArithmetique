@@ -9,6 +9,7 @@ class NumberExpression : public Expression
 {
 private:
     int value;
+
 public:
     NumberExpression(const int v);
     ~NumberExpression();

@@ -6,7 +6,7 @@ COMP = g++
 RM = rm
 EDL = g++
 ECHO = echo
-INT = symbol.h number.h expression.h numberexpression.h binaryexpression.h multiplybinaryexpression.h plusbinaryexpression.h lexer.h automate.h state.h
+INT = symbol.h number.h expression.h numberexpression.h binaryexpression.h multiplybinaryexpression.h plusbinaryexpression.h simpleexpression.h lexer.h automate.h state.h
 REAL = $(INT:.h=.cpp) main.cpp
 OBJ = $(INT:.h=.o) main.o
 OUTPUT = -o
@@ -39,6 +39,7 @@ numberexpression.o : numberexpression.h expression.h expression.cpp symbol.h sym
 binaryexpression.o : binaryexpression.h expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
 multiplybinaryexpression.o : multiplybinaryexpression.h binaryexpression.h binaryexpression.cpp expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
 plusbinaryexpression.o : plusbinaryexpression.h binaryexpression.h binaryexpression.cpp expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
+simpleexpression.o : simpleexpression.h expression.h expression.cpp symbol.h symbol.cpp $(MAKEFILE)
 lexer.o : lexer.h expression.h expression.cpp symbol.h symbol.cpp number.h number.cpp $(MAKEFILE)
 automate.o : automate.h lexer.h lexer.cpp state.h state.cpp expression.h expression.cpp symbol.h symbol.cpp number.h number.cpp $(MAKEFILE)
 state.o : automate.h automate.cpp symbol.h symbol.cpp $(MAKEFILE)

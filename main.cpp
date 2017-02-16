@@ -1,8 +1,10 @@
 #include <iostream>
+
 #include "automate.h"
 #include "multiplybinaryexpression.h"
 #include "plusbinaryexpression.h"
 #include "numberexpression.h"
+#include "simpleexpression.h"
 
 using namespace std;
 
@@ -13,7 +15,7 @@ void testExpression();
 int main() {
 
     test();
-    //showMenu();
+//    showMenu();
 //    testExpression();
 
     return 0;
@@ -49,12 +51,18 @@ void showMenu() {
 }
 
 void testExpression(){
+    //(2+5)*(3+17)
     NumberExpression *ne1 = new NumberExpression(2);
     NumberExpression *ne2 = new NumberExpression(5);
     NumberExpression *ne3 = new NumberExpression(3);
     NumberExpression *ne4 = new NumberExpression(17);
     PlusBinaryExpression *pbe1 = new PlusBinaryExpression(ne1,ne2);
     PlusBinaryExpression *pbe2 = new PlusBinaryExpression(ne3,ne4);
-    MultiplyBinaryExpression mbe = MultiplyBinaryExpression(pbe1,pbe2);
+    SimpleExpression *se1 = new SimpleExpression(pbe1);
+    SimpleExpression *se2 = new SimpleExpression(pbe2);
+    MultiplyBinaryExpression mbe = MultiplyBinaryExpression(se1,se2);
+    cout << endl;
+    cout << "(2+5)*(3+17)" << endl;
     cout << mbe.print() <<  " = " << mbe.eval() << endl;
+    cout << endl;
 }
