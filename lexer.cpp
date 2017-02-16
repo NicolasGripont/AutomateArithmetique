@@ -23,14 +23,14 @@ void Lexer::read(string s) {
         } else {
             Symbol *sym = nullptr;
             switch(s[i]) {
-                case ' ':
-                case '\n':
-                case '\t': break;
-                case '$': sym = new Symbol(END);break;
-                case '+' : sym = new Symbol(ADD);break;
-                case '*' : sym = new Symbol(MUL);break;
-                case '(' : sym = new Symbol(PO);break;
-                case ')' : sym = new Symbol(PF);break;
+                case ' ' :
+                case '\n' :
+                case '\t' : break;
+                case '$' : sym = new Symbol(END); break;
+                case '+' : sym = new Symbol(ADD); break;
+                case '*' : sym = new Symbol(MUL); break;
+                case '(' : sym = new Symbol(PO); break;
+                case ')' : sym = new Symbol(PF); break;
                 default: cout << "ERROR : caractere " << s[i] << " lu" << endl;
             }
             if(sym != nullptr) {
