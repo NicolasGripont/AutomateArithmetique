@@ -69,4 +69,70 @@ public:
     virtual bool transition(Automate & automate, Symbol *s);
 };
 
+// ----------------------------------- State 4 -----------------------------------
+class State4 : public State
+{
+public:
+    State4(string name);
+    virtual ~State4();
+
+    virtual string print() const;
+    virtual bool transition(Automate & automate, Symbol *s);
+};
+
+// ----------------------------------- State 5 -----------------------------------
+class State5 : public State
+{
+public:
+    State5(string name);
+    virtual ~State5();
+
+    virtual string print() const;
+    virtual bool transition(Automate & automate, Symbol *s);
+};
+
+// ----------------------------------- State 6 -----------------------------------
+class State6 : public State
+{
+public:
+    State6(string name);
+    virtual ~State6();
+
+    virtual string print() const;
+    virtual bool transition(Automate & automate, Symbol *s);
+};
+
+// ----------------------------------- State 7 -----------------------------------
+class State7 : public State
+{
+public:
+    State7(string name);
+    virtual ~State7();
+
+    virtual string print() const;
+    virtual bool transition(Automate & automate, Symbol *s);
+};
+
+// ----------------------------------- State 8 -----------------------------------
+class State8 : public State
+{
+public:
+    State8(string name);
+    virtual ~State8();
+
+    virtual string print() const;
+    virtual bool transition(Automate & automate, Symbol *s);
+};
+
+// ----------------------------------- State 9 -----------------------------------
+class State9 : public State
+{
+public:
+    State9(string name);
+    virtual ~State9();
+
+    virtual string print() const;
+    virtual bool transition(Automate & automate, Symbol *s);
+};
+
 #endif // STATE_H

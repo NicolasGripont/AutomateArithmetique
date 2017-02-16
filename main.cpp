@@ -23,8 +23,12 @@ int main() {
 
 void test() {
     Automate automate;
-    automate.execute("5+3$");
-    cout << automate << endl;
+    if(automate.execute("5+3$", true)) {
+        Expression *e = automate.getResult();
+        cout << "Answer : " << *e << " = " << e->eval() << endl;
+    } else {
+        cout << "ERROR" << endl;
+    }
 }
 
 

@@ -7,20 +7,41 @@ Automate::Automate() {
 Automate::~Automate() {
     deleteSymbols();
     deleteStates();
+    deleteGarbage();
 }
 
-bool Automate::execute(string s) {
+bool Automate::execute(string s, bool debug) {
     chaine = s;
+    int iteration = 0;
     deleteSymbols();
     deleteStates();
     lexer.read(s);
+    bool error = false;
+    bool accepte = false;
+    init();
+    if(debug) {
+        cout << "Iteration " << iteration << endl;
+        cout << print() << endl;
+    }
+    while(!error && !accepte) {
+        State *etatCourant = states.top();
+        error = !etatCourant->transition(*this, lexer.next());
+        if(lexer.next() == nullptr) {
+            accepte = true;
+        } else {
+            accepte = false;
+        }        
+        if(debug) {
+            iteration++;
+            cout << "Iteration " << iteration << " - Error : " << error << " - Accepted : " << accepte << endl;
+            cout << print() << endl;
+        }
+    }
+    return !error || accepte;
+}
 
-//    while()
-//    {
-
-//    }
-
-    return true;
+Expression * Automate::getResult() const {
+    return dynamic_cast<Expression *>(symbols.top());
 }
 
 string Automate::print() const {
@@ -56,6 +77,16 @@ string Automate::print() const {
     return chaine;
 }
 
+void Automate::shift() {
+    lexer.shift();
+}
+
+void Automate::pushGarbage(State *s) {
+    if(s!= nullptr) {
+        garbage.push_back(s);
+    }
+}
+
 void Automate::pushState(State *s) {
     if(s!= nullptr) {
         states.push(s);
@@ -68,16 +99,27 @@ void Automate::pushSymbol(Symbol *s) {
    }
 }
 
-State* Automate::popState() {
+void Automate::popState() {
     State *s = states.top();
     states.pop();
-    return s;
+    pushGarbage(s);
 }
 
 Symbol* Automate::popSymbol() {
     Symbol *s = symbols.top();
     symbols.pop();
     return s;
+}
+
+Symbol* Automate::topSymbol() {
+    Symbol *s = symbols.top();
+    return s;
+}
+
+void Automate::init() {
+    deleteStates();
+    deleteSymbols();
+    pushState(new State0("0"));
 }
 
 void Automate::deleteStates() {
@@ -100,7 +142,17 @@ void Automate::deleteSymbols() {
     }
 }
 
+void Automate::deleteGarbage() {
+    while(!garbage.empty()) {
+        State *s = garbage.back();
+        garbage.pop_back();
+        if(s != nullptr) {
+            delete s;
+        }
+    }
+}
+
 ostream& operator<<(ostream& os, const Automate& a) {
-    os << a.print() << endl;
+    os << a.print();
     return os;
 }

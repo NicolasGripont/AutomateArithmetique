@@ -27,6 +27,6 @@ string Symbol::print() const {
 }
 
 ostream& operator<<(ostream& os, const Symbol& s) {
-    os << s.print() << endl;
+    os << s.print();
     return os;
 }

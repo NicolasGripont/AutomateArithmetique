@@ -1,4 +1,8 @@
 #include "state.h"
+#include "number.h"
+#include "numberexpression.h"
+#include "plusbinaryexpression.h"
+#include "multiplybinaryexpression.h"
 
 // ----------------------------------- State -----------------------------------
 State::State(string name) : name(name) {
@@ -16,7 +20,7 @@ void State::setName(string name) {
 }
 
 ostream& operator<<(ostream& os, const State& s) {
-    os << s.print() << endl;
+    os << s.print();
     return os;
 }
 
@@ -33,17 +37,26 @@ string State0::print() const {
 
 bool State0::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
+        Number *n = nullptr;
+        Expression *e = nullptr;
         switch(s->getType()) {
-            case E : 
-                automate.pushState(new State1("State 1"));
             case PO :
-                automate.pushState(new State2("State 2"));
+                automate.pushState(new State2("2"));
+                break;
             case INT :
-                automate.pushState(new State3("State 3"));
+                n = (Number *) s;
+                automate.pushState(new State3("3"));
+                automate.pushSymbol(new Number(n->getNumber(), n->getType()));
+                automate.shift();
+                break;
             default :
-                return false;
+                e = dynamic_cast<Expression *>(automate.topSymbol());
+                if(e != nullptr) {
+                    automate.pushState(new State1("1"));
+                } else {
+                    return false;
+                }
         }
-        automate.pushSymbol(s);
         return true;
     }
     return false;
@@ -63,16 +76,20 @@ string State1::print() const {
 bool State1::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         switch(s->getType()) {
-            case E : 
-                automate.pushState(new State1("State 1"));
-            case PO :
+            case ADD : 
+                automate.pushState(new State4("4"));
+                automate.pushSymbol(new Symbol(s->getType()));
+                automate.shift();
+                break;
+            case MUL :
                 automate.pushState(new State2("State 2"));
-            case INT :
-                automate.pushState(new State3("State 3"));
+                break;
+            case END :
+                automate.shift();
+                break;
             default :
                 return false;
         }
-        automate.pushSymbol(s);
         return true;
     }
     return false;
@@ -119,6 +136,212 @@ string State3::print() const {
 }
 
 bool State3::transition(Automate & automate, Symbol *s) {
+    if(s != nullptr) {
+        Number *n = nullptr;
+        switch(s->getType()) {
+            case END : 
+                n = (Number *) automate.popSymbol();
+                automate.popState();
+                automate.pushSymbol(new NumberExpression(n->getNumber()));
+                break;
+            case PF :
+                automate.pushState(new State2("State 2"));
+                break;
+            case ADD :
+                n = (Number *) automate.popSymbol();
+                automate.popState();
+                automate.pushSymbol(new NumberExpression(n->getNumber()));
+                break;
+            case MUL :
+                automate.pushState(new State3("State 3"));
+                break;
+            default :
+                return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+// ----------------------------------- State 4 -----------------------------------
+State4::State4(string name) : State(name) {
+}
+
+State4::~State4() {
+}
+
+string State4::print() const {
+    return name;
+}
+
+bool State4::transition(Automate & automate, Symbol *s) {
+    if(s != nullptr) {
+        Number *n = nullptr;
+        Expression *e = nullptr;
+        switch(s->getType()) {
+            case PO :
+                automate.pushState(new State2("2"));
+                break;
+            case INT :
+                n = (Number *) s;
+                automate.pushState(new State3("3"));
+                automate.pushSymbol(new Number(n->getNumber(), n->getType()));
+                automate.shift();
+                break;
+            default :
+                e = dynamic_cast<Expression *>(automate.topSymbol());
+                if(e != nullptr) {
+                    automate.pushState(new State7("7"));
+                } else {
+                    return false;
+                }
+        }
+        return true;
+    }
+    return false;
+}
+
+// ----------------------------------- State 5 -----------------------------------
+State5::State5(string name) : State(name) {
+}
+
+State5::~State5() {
+}
+
+string State5::print() const {
+    return name;
+}
+
+bool State5::transition(Automate & automate, Symbol *s) {
+    if(s != nullptr) {
+        switch(s->getType()) {
+            case E : 
+                automate.pushState(new State1("State 1"));
+            case PO :
+                automate.pushState(new State2("State 2"));
+            case INT :
+                automate.pushState(new State3("State 3"));
+            default :
+                return false;
+        }
+        automate.pushSymbol(s);
+        return true;
+    }
+    return false;
+}
+
+// ----------------------------------- State 6 -----------------------------------
+State6::State6(string name) : State(name) {
+}
+
+State6::~State6() {
+}
+
+string State6::print() const {
+    return name;
+}
+
+bool State6::transition(Automate & automate, Symbol *s) {
+    if(s != nullptr) {
+        switch(s->getType()) {
+            case E : 
+                automate.pushState(new State1("State 1"));
+            case PO :
+                automate.pushState(new State2("State 2"));
+            case INT :
+                automate.pushState(new State3("State 3"));
+            default :
+                return false;
+        }
+        automate.pushSymbol(s);
+        return true;
+    }
+    return false;
+}
+
+// ----------------------------------- State 7 -----------------------------------
+State7::State7(string name) : State(name) {
+}
+
+State7::~State7() {
+}
+
+string State7::print() const {
+    return name;
+}
+
+bool State7::transition(Automate & automate, Symbol *s) {
+    if(s != nullptr) {
+        Expression *eL = nullptr;
+        Expression *eR = nullptr;
+        switch(s->getType()) {
+            case ADD : 
+                automate.pushState(new State1("State 1"));
+                break;
+            case MUL :
+                automate.pushState(new State2("State 2"));
+                break;
+            case PF :
+                automate.pushState(new State3("State 3"));
+                break;
+            case END :
+                eR = (Expression *) automate.popSymbol();
+                automate.popSymbol(); // pour le +
+                eL = (Expression *) automate.popSymbol();
+                automate.pushSymbol(new PlusBinaryExpression(eL,eR));
+                automate.popState();
+                automate.popState();
+                automate.popState();
+                break;
+            default :
+                return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+// ----------------------------------- State 8 -----------------------------------
+State8::State8(string name) : State(name) {
+}
+
+State8::~State8() {
+}
+
+string State8::print() const {
+    return name;
+}
+
+bool State8::transition(Automate & automate, Symbol *s) {
+    if(s != nullptr) {
+        switch(s->getType()) {
+            case E : 
+                automate.pushState(new State1("State 1"));
+            case PO :
+                automate.pushState(new State2("State 2"));
+            case INT :
+                automate.pushState(new State3("State 3"));
+            default :
+                return false;
+        }
+        automate.pushSymbol(s);
+        return true;
+    }
+    return false;
+}
+
+// ----------------------------------- State 9 -----------------------------------
+State9::State9(string name) : State(name) {
+}
+
+State9::~State9() {
+}
+
+string State9::print() const {
+    return name;
+}
+
+bool State9::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         switch(s->getType()) {
             case E : 

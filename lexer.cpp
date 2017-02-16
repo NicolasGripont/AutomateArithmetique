@@ -50,11 +50,12 @@ string Lexer::print() const {
     deque<Symbol*>::const_iterator i = symbols.begin();
     while(i != symbols.end()) {
         if(ind == index)
-            chaine += "-> ";
-        chaine += (*i)->print() + "\n";
+            chaine += ".";
+        chaine += (*i)->print();
         ind++;
         i++;
     }
+    chaine += "\n";
     return chaine;
 }
 
@@ -84,6 +85,6 @@ void Lexer::deleteSymbols() {
 }
 
 ostream& operator<<(ostream& os, const Lexer& l) {
-    os << l.print() << endl;
+    os << l.print();
     return os;
 }
