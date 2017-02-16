@@ -46,7 +46,7 @@ deque<Symbol*> Lexer::getSymbols() const {
 
 string Lexer::print() const {
     string chaine = "";
-    int ind = 0;
+    unsigned int ind = 0;
     deque<Symbol*>::const_iterator i = symbols.begin();
     while(i != symbols.end()) {
         if(ind == index)

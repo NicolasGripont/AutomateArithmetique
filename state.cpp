@@ -143,6 +143,7 @@ bool State3::transition(Automate & automate, Symbol *s) {
                 n = (Number *) automate.popSymbol();
                 automate.popState();
                 automate.pushSymbol(new NumberExpression(n->getNumber()));
+                delete n;
                 break;
             case PF :
                 automate.pushState(new State2("State 2"));
@@ -151,6 +152,7 @@ bool State3::transition(Automate & automate, Symbol *s) {
                 n = (Number *) automate.popSymbol();
                 automate.popState();
                 automate.pushSymbol(new NumberExpression(n->getNumber()));
+                delete n;
                 break;
             case MUL :
                 automate.pushState(new State3("State 3"));
@@ -286,7 +288,7 @@ bool State7::transition(Automate & automate, Symbol *s) {
                 break;
             case END :
                 eR = (Expression *) automate.popSymbol();
-                automate.popSymbol(); // pour le +
+                delete automate.popSymbol(); // pour le +
                 eL = (Expression *) automate.popSymbol();
                 automate.pushSymbol(new PlusBinaryExpression(eL,eR));
                 automate.popState();
