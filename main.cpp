@@ -14,8 +14,8 @@ void testExpression();
 
 int main() {
 
-    test();
-//    showMenu();
+//    test();
+    showMenu();
 //    testExpression();
 
     return 0;
@@ -33,6 +33,7 @@ void test() {
 
 
 void showMenu() {
+    Automate automate;
     string exit = "exit";
     string line;
 
@@ -46,8 +47,12 @@ void showMenu() {
 
         if(!line.empty() && line.compare(exit) != 0) {
             line += "$";
-            //        TODO : analyser et évaluer l'expression
-
+            if(automate.execute(line,true)) {
+                Expression *e = automate.getResult();
+                cout << "Answer : " << *e << " = " << e->eval() << endl;
+            } else {
+                cout << "ERROR" << endl;
+            }
             cout << endl;
         }
 

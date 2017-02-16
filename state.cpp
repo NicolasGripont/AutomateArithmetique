@@ -43,7 +43,7 @@ bool State0::transition(Automate & automate, Symbol *s) {
         switch(s->getType()) {
             case PO :
                 automate.pushState(new State2("2"));
-                automate.pushSymbol(new Symbol(n->getType()));
+                automate.pushSymbol(new Symbol(s->getType()));
                 automate.shift();
                 break;
             case INT :
@@ -120,7 +120,7 @@ bool State2::transition(Automate & automate, Symbol *s) {
                 return false;
             case PO :
                 automate.pushState(new State2("2"));
-                automate.pushSymbol(new Symbol(n->getType()));
+                automate.pushSymbol(new Symbol(s->getType()));
                 automate.shift();
                 break;
             case INT :
@@ -153,29 +153,13 @@ string State3::print() const {
     return name;
 }
 
-//TODO AMELIORE COPIER-COLLER
 bool State3::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         Number *n = nullptr;
         switch(s->getType()) {
             case END : 
-                n = (Number *) automate.popSymbol();
-                automate.popState();
-                automate.pushSymbol(new NumberExpression(n->getNumber()));
-                delete n;
-                break;
             case PF :
-                n = (Number *) automate.popSymbol();
-                automate.popState();
-                automate.pushSymbol(new NumberExpression(n->getNumber()));
-                delete n;
-                break;
             case ADD :
-                n = (Number *) automate.popSymbol();
-                automate.popState();
-                automate.pushSymbol(new NumberExpression(n->getNumber()));
-                delete n;
-                break;
             case MUL :
                 n = (Number *) automate.popSymbol();
                 automate.popState();
@@ -207,6 +191,9 @@ bool State4::transition(Automate & automate, Symbol *s) {
         Expression *e = nullptr;
         switch(s->getType()) {
             case PO :
+                automate.pushState(new State2("2"));
+                automate.pushSymbol(new Symbol(s->getType()));
+                automate.shift();
                 break;
             case INT :
                 n = (Number *) s;
@@ -289,6 +276,9 @@ bool State6::transition(Automate & automate, Symbol *s) {
                 automate.shift();
                 break;
             case MUL :
+                automate.pushState(new State5("5"));
+                automate.pushSymbol(new Symbol(s->getType()));
+                automate.shift();
                 break;
             case PF :
                 automate.pushState(new State9("9"));
@@ -318,30 +308,19 @@ bool State7::transition(Automate & automate, Symbol *s) {
     if(s != nullptr) {
         Expression *eL = nullptr;
         Expression *eR = nullptr;
-        Symbol *signe = nullptr;
         switch(s->getType()) {
-            case ADD : 
-                break;
             case MUL :
+                automate.pushState(new State5("5"));
+                automate.pushSymbol(new Symbol(s->getType()));
+                automate.shift();
                 break;
+            case ADD :
             case PF :
-                eR = (Expression *) automate.popSymbol();
-                delete automate.popSymbol(); // pour le +
-                eL = (Expression *) automate.popSymbol();
-                automate.pushSymbol(new PlusBinaryExpression(eL,eR));
-                automate.popState();
-                automate.popState();
-                automate.popState();
-                break;
             case END :
                 eR = (Expression *) automate.popSymbol();
-                signe = automate.popSymbol();
+                delete automate.popSymbol();
                 eL = (Expression *) automate.popSymbol();
-                if(signe->getType() == ADD) {
-                    automate.pushSymbol(new PlusBinaryExpression(eL,eR));
-                } else {
-                    automate.pushSymbol(new MultiplyBinaryExpression(eL,eR));
-                }
+                automate.pushSymbol(new PlusBinaryExpression(eL,eR));
                 automate.popState();
                 automate.popState();
                 automate.popState();
@@ -371,11 +350,8 @@ bool State8::transition(Automate & automate, Symbol *s) {
         Expression *eR = nullptr;
         switch(s->getType()) {
             case ADD :
-                break;
             case MUL :
-                break;
             case PF :
-                break;
             case END :
                 eR = (Expression *) automate.popSymbol();
                 delete automate.popSymbol(); // pour le +
@@ -409,9 +385,8 @@ bool State9::transition(Automate & automate, Symbol *s) {
         Expression *e = nullptr;
         switch(s->getType()) {
             case ADD :
-                break;
             case MUL :
-                break;
+            case PF :
             case END :
                 delete automate.popSymbol();
                 e = (Expression *) automate.popSymbol();
