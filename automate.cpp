@@ -15,6 +15,7 @@ bool Automate::execute(string s, bool debug) {
     int iteration = 0;
     deleteSymbols();
     deleteStates();
+    deleteGarbage();
     lexer.read(s);
     bool error = false;
     bool accepte = false;
