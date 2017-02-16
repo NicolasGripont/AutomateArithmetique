@@ -47,7 +47,7 @@ void showMenu() {
 
         if(!line.empty() && line.compare(exit) != 0) {
             line += "$";
-            if(automate.execute(line,true)) {
+            if(automate.execute(line)) {
                 Expression *e = automate.getResult();
                 cout << "Answer : " << *e << " = " << e->eval() << endl;
             } else {

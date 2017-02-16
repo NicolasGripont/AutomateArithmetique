@@ -31,7 +31,9 @@ void Lexer::read(string s) {
                 case '*' : sym = new Symbol(MUL); break;
                 case '(' : sym = new Symbol(PO); break;
                 case ')' : sym = new Symbol(PF); break;
-                default: cout << "ERROR : caractere " << s[i] << " lu" << endl;
+                default:
+                    cout << "ERROR : caractere " << s[i] << " lu" << endl;
+                    sym = new Symbol(ERR);
             }
             if(sym != nullptr) {
                 symbols.push_back(sym);

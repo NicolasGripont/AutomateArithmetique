@@ -41,6 +41,8 @@ bool State0::transition(Automate & automate, Symbol *s) {
         Number *n = nullptr;
         Expression *e = nullptr;
         switch(s->getType()) {
+            case ERR :
+                return false;
             case PO :
                 automate.pushState(new State2("2"));
                 automate.pushSymbol(new Symbol(s->getType()));
@@ -190,6 +192,8 @@ bool State4::transition(Automate & automate, Symbol *s) {
         Number *n = nullptr;
         Expression *e = nullptr;
         switch(s->getType()) {
+            case ERR :
+                return false;
             case PO :
                 automate.pushState(new State2("2"));
                 automate.pushSymbol(new Symbol(s->getType()));
